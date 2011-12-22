@@ -1,15 +1,4 @@
-require 'eventmachine'
-require 'socket'
-require 'pp'
-
-# Inspiration
-# https://github.com/fastly/ganglia/blob/master/lib/gm_protocol.x
-# https://github.com/igrigorik/gmetric/blob/master/lib/gmetric.rb
-# https://github.com/ganglia/monitor-core/blob/master/gmond/gmond.c#L1211
-# https://github.com/ganglia/ganglia_contrib/blob/master/gmetric-python/gmetric.py#L107
-# https://gist.github.com/1377993
-
-class GmonPacket
+class GmonPacket2
 
   def initialize(packet)
     @unpacked=packet
@@ -113,47 +102,3 @@ class GmonPacket
   end
 
 end
-
-class UDPServer
-  def initialize(port)
-    @port = port
-  end
-
-  def handle(packet)
-    print "Connection: #{packet[1]} :"
-    pp packet[0]
-    gmonpacket=GmonPacket.new(packet[0])
-    pp gmonpacket.to_hash
-
-  end
-
-  def start
-    @socket = UDPSocket.new
-    @socket.bind("0.0.0.0", @port) # is nil OK here?
-    while true
-      packet = @socket.recvfrom(1024)
-      handle(packet)
-    end
-  end
-end
-
-#server = UDPServer.new(1234)
-#server.start
-
-module GmonHandler
-  def receive_data packet
-    #pp packet
-    gmonpacket=GmonPacket.new(packet)
-    @counter=0 if @counter.nil?
-    @counter=@counter+1
-    pp '[',@counter,']',gmonpacket.to_hash
-  end
-end
-
-EventMachine::run {
-  host,port = "0.0.0.0",1234
-  #EventMachine::open_datagram_socket(address, port, handler=nil, *args
-  EventMachine::open_datagram_socket(host,port,GmonHandler)
-  puts "Now accepting connections on address #{host}, port #{port}..."
-  EventMachine::add_periodic_timer( 1 ) { $stderr.write "*" }
-}
