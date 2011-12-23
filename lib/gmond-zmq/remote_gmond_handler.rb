@@ -60,11 +60,11 @@ class PostCallbacks < Nokogiri::XML::SAX::Document
     @metrics.each do |metric|
       message=Hash.new
       message['id']=UUID.new.generate
-      message.delete('source')
 
       # Correct the timestamp based on the time last seen
       message['timestamp']=@base_timestamp.to_i-message['tn'].to_i
       message['payload']=metric
+      message['payload'].delete('source')
       message['context']="METRIC"
       message['source']="GMOND"
 

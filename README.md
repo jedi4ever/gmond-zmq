@@ -3,9 +3,14 @@
 There is not one monitoring project to rule them all:
 
 Ganglia, Graphite, Collectd, Opentsdb, ... they all have their specific unique functionality and their associate unique storage.
-So instead of trying to create one central storage, we want to send the different metric information, to each monitoring solution for their optimized function.
 
-This code will listen into the gmond UDP protocol + optionally poll existing gmond's and put the message on to a 0mq (pub/sub).
+Instead of trying to create one central storage, we want to send the different metric information, to each monitoring solution for their optimized function.
+
+This project's code will:
+
+- listen into the gmond UDP protocol 
+- optionally poll existing gmond's and put the message on to a 0mq (pub/sub).
+
 From there, other subscribers can pull the information into graphite, collectd, opentsdb etc..
 
 We have deliberately chosen not to go for peer to peer communication, but for a bus/queue oriented system.
@@ -54,14 +59,12 @@ A big thanks to Vladimir Vuksan (@vvuksan) for helping me out with the original 
 
 ### Message examples
 
-    {"timestamp":1324637589,"payload":{"name":"mem_shared","val":"0","slope":"both","dmax":"0","tn":"155","units":"KB","type":"float","tmax":"180","hostname":"localhost","source":"gmond"},"id":"39cccb40-0f82-012f-0615-080027701f72","context":"METRIC","source":"GMOND"}
-    {"timestamp":1324637589,"payload":{"name":"cpu_wio","val":"0.1","slope":"both","dmax":"0","tn":"15","units":"%","type":"float","tmax":"90","hostname":"localhost","source":"gmond"},"id":"39cce760-0f82-012f-0616-080027701f72","context":"METRIC","source":"GMOND"}
-    {"timestamp":1324637589,"payload":{"name":"machine_type","val":"x86_64","slope":"zero","dmax":"0","tn":"1175","units":"","type":"string","tmax":"1200","hostname":"localhost","source":"gmond"},"id":"39ccfdf0-0f82-012f-0617-080027701f72","context":"METRIC","source":"GMOND"}
-    {"timestamp":1324637589,"payload":{"name":"proc_total","val":"104","slope":"both","dmax":"0","tn":"55","units":" ","type":"uint32","tmax":"950","hostname":"localhost","source":"gmond"},"id":"39cd2930-0f82-012f-0618-080027701f72","context":"METRIC","source":"GMOND"}
-    {"timestamp":1324637589,"payload":{"name":"cpu_num","val":"1","slope":"zero","dmax":"0","tn":"1175","units":"CPUs","type":"uint16","tmax":"1200","hostname":"localhost","source":"gmond"},"id":"39cd46c0-0f82-012f-0619-080027701f72","context":"METRIC","source":"GMOND"}
-    {"timestamp":1324637589,"payload":{"name":"cpu_speed","val":"2800","slope":"zero","dmax":"0","tn":"1175","units":"MHz","type":"uint32","tmax":"1200","hostname":"localhost","source":"gmond"},"id":"39cd6c60-0f82-012f-061a-080027701f72","context":"METRIC","source":"GMOND"}
-    {"timestamp":1324637589,"payload":{"name":"pkts_out","val":"4.20","slope":"both","dmax":"0","tn":"115","units":"packets/sec","type":"float","tmax":"300","hostname":"localhost","source":"gmond"},"id":"39cd8890-0f82-012f-061b-080027701f72","context":"METRIC","source":"GMOND"}
-    {"timestamp":1324637589,"payload":{"name":"swap_free","val":"741736","slope":"both","dmax":"0","tn":"155","units":"KB","type":"float","tmax":"180","hostname":"localhost","source":"gmond"},"id":"39cdb280-0f82-012f-061c-080027701f72","context":"METRIC","source":"GMOND"}
+{"timestamp":1324639623,"payload":{"name":"machine_type","val":"x86_64","slope":"zero","dmax":"0","tn":"809","units":"","type":"string","tmax":"1200","hostname":"localhost"},"id":"f6412a10-0f86-012f-0bdb-080027701f72","context":"METRIC","source":"GMOND"}
+{"timestamp":1324639623,"payload":{"name":"proc_total","val":"105","slope":"both","dmax":"0","tn":"89","units":" ","type":"uint32","tmax":"950","hostname":"localhost"},"id":"f6415250-0f86-012f-0bdc-080027701f72","context":"METRIC","source":"GMOND"}
+{"timestamp":1324639623,"payload":{"name":"cpu_num","val":"1","slope":"zero","dmax":"0","tn":"809","units":"CPUs","type":"uint16","tmax":"1200","hostname":"localhost"},"id":"f6417410-0f86-012f-0bdd-080027701f72","context":"METRIC","source":"GMOND"}
+{"timestamp":1324639623,"payload":{"name":"cpu_speed","val":"2800","slope":"zero","dmax":"0","tn":"809","units":"MHz","type":"uint32","tmax":"1200","hostname":"localhost"},"id":"f64186c0-0f86-012f-0bdf-080027701f72","context":"METRIC","source":"GMOND"}
+{"timestamp":1324639623,"payload":{"name":"pkts_out","val":"3.27","slope":"both","dmax":"0","tn":"49","units":"packets/sec","type":"float","tmax":"300","hostname":"localhost"},"id":"f641aa00-0f86-012f-0be0-080027701f72","context":"METRIC","source":"GMOND"}
+{"timestamp":1324639623,"payload":{"name":"swap_free","val":"741752","slope":"both","dmax":"0","tn":"89","units":"KB","type":"float","tmax":"180","hostname":"localhost"},"id":"f641c720-0f86-012f-0be1-080027701f72","context":"METRIC","source":"GMOND"}
 
 ### Some inspiration:
 
