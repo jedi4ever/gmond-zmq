@@ -32,6 +32,15 @@ A big thanks to Vladimir Vuksan (@vvuksan) for helping me out with the original 
     # yum install uuid-devel
     # yum install json-c-devel
 
+### Configuring gmond
+
+Just add another udp send channel for your existing gmond's
+
+    udp_send_channel {
+        host = 127.0.0.1
+        port = 1234
+    }
+
 ### Running it:
 
     gmond-zmq - A gmond UDP receiver that pushes things to a 0mq Pub/Sub
