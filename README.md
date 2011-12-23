@@ -14,6 +14,10 @@ It currently doesn't do more than put things on the queue, the next step is to w
 
 And maybe , just maybe,  this will evolve into a swiss-army knife of monitoring/metrics conversion ....
 
+### Thanks!
+
+A big thanks to Vladimir Vuksan (@vvuksan) for helping me out with the original proof of concept!
+
 ### Requirements:
 #### Centos
 
