@@ -59,12 +59,12 @@ A big thanks to Vladimir Vuksan (@vvuksan) for helping me out with the original 
 
 ### Message examples
 
-{"timestamp":1324639623,"payload":{"name":"machine_type","val":"x86_64","slope":"zero","dmax":"0","tn":"809","units":"","type":"string","tmax":"1200","hostname":"localhost"},"id":"f6412a10-0f86-012f-0bdb-080027701f72","context":"METRIC","source":"GMOND"}
-{"timestamp":1324639623,"payload":{"name":"proc_total","val":"105","slope":"both","dmax":"0","tn":"89","units":" ","type":"uint32","tmax":"950","hostname":"localhost"},"id":"f6415250-0f86-012f-0bdc-080027701f72","context":"METRIC","source":"GMOND"}
-{"timestamp":1324639623,"payload":{"name":"cpu_num","val":"1","slope":"zero","dmax":"0","tn":"809","units":"CPUs","type":"uint16","tmax":"1200","hostname":"localhost"},"id":"f6417410-0f86-012f-0bdd-080027701f72","context":"METRIC","source":"GMOND"}
-{"timestamp":1324639623,"payload":{"name":"cpu_speed","val":"2800","slope":"zero","dmax":"0","tn":"809","units":"MHz","type":"uint32","tmax":"1200","hostname":"localhost"},"id":"f64186c0-0f86-012f-0bdf-080027701f72","context":"METRIC","source":"GMOND"}
-{"timestamp":1324639623,"payload":{"name":"pkts_out","val":"3.27","slope":"both","dmax":"0","tn":"49","units":"packets/sec","type":"float","tmax":"300","hostname":"localhost"},"id":"f641aa00-0f86-012f-0be0-080027701f72","context":"METRIC","source":"GMOND"}
-{"timestamp":1324639623,"payload":{"name":"swap_free","val":"741752","slope":"both","dmax":"0","tn":"89","units":"KB","type":"float","tmax":"180","hostname":"localhost"},"id":"f641c720-0f86-012f-0be1-080027701f72","context":"METRIC","source":"GMOND"}
+    {"timestamp":1324639623,"payload":{"name":"machine_type","val":"x86_64","slope":"zero","dmax":"0","tn":"809","units":"","type":"string","tmax":"1200","hostname":"localhost"},"id":"f6412a10-0f86-012f-0bdb-080027701f72","context":"METRIC","source":"GMOND"}
+    {"timestamp":1324639623,"payload":{"name":"proc_total","val":"105","slope":"both","dmax":"0","tn":"89","units":" ","type":"uint32","tmax":"950","hostname":"localhost"},"id":"f6415250-0f86-012f-0bdc-080027701f72","context":"METRIC","source":"GMOND"}
+    {"timestamp":1324639623,"payload":{"name":"cpu_num","val":"1","slope":"zero","dmax":"0","tn":"809","units":"CPUs","type":"uint16","tmax":"1200","hostname":"localhost"},"id":"f6417410-0f86-012f-0bdd-080027701f72","context":"METRIC","source":"GMOND"}
+    {"timestamp":1324639623,"payload":{"name":"cpu_speed","val":"2800","slope":"zero","dmax":"0","tn":"809","units":"MHz","type":"uint32","tmax":"1200","hostname":"localhost"},"id":"f64186c0-0f86-012f-0bdf-080027701f72","context":"METRIC","source":"GMOND"}
+    {"timestamp":1324639623,"payload":{"name":"pkts_out","val":"3.27","slope":"both","dmax":"0","tn":"49","units":"packets/sec","type":"float","tmax":"300","hostname":"localhost"},"id":"f641aa00-0f86-012f-0be0-080027701f72","context":"METRIC","source":"GMOND"}
+    {"timestamp":1324639623,"payload":{"name":"swap_free","val":"741752","slope":"both","dmax":"0","tn":"89","units":"KB","type":"float","tmax":"180","hostname":"localhost"},"id":"f641c720-0f86-012f-0be1-080027701f72","context":"METRIC","source":"GMOND"}
 
 ### Some inspiration:
 
