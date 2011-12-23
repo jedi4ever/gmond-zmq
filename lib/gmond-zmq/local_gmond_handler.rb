@@ -36,7 +36,7 @@ class LocalGmondHandler < EM::Connection
         message['context'] = "METRIC"
         message['source'] = "GMOND"
         message['payload'] = data
-        %w{dmax tmax slope type}.each do |info|
+        %w{dmax tmax slope type units}.each do |info|
           message['payload'][info] = @metadata[data['name']][info]
         end
         # message['payload']['meta'] = @metadata[data['name']]
