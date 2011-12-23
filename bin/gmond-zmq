@@ -35,7 +35,7 @@ runner.with_options do |opts|
   end
 
   # Zmq options
-  opts.on("--zmq-port [PORT]", Integer, "tcp port of the zmq publisher") do |zmqport|
+  opts.on("--zmq-port [PORT]", Integer, "tcp port of the zmq publisher, 7777 default") do |zmqport|
     options[:zmq_port] = zmqport
   end
   opts.on("--zmq-host [HOST]", String, "hostname/ip address of the zmq publisher") do |zmqhost|
@@ -46,7 +46,7 @@ runner.with_options do |opts|
     options[:verbose] = verbose
   end
 
-  opts.on("-t","--test-zmq", "Starts a test zmq puller") do |test_zmq|
+  opts.on("-t","--test-zmq", "Starts a test zmq subscriber") do |test_zmq|
     options[:test_zmq] = test_zmq
   end
 

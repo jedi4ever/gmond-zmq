@@ -1,6 +1,3 @@
-# gem install em-zeromq
-# gem install eventmachine
-
 require 'rubygems'
 require 'em-zeromq'
 require 'eventmachine'
@@ -9,6 +6,7 @@ require 'socket'
 require 'pp'
 require 'nokogiri'
 require 'json'
+require 'uuid'
 # requires yum install libxml2-devel
 # requires yum install libxslt-devel
 

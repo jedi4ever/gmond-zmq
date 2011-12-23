@@ -1,5 +1,6 @@
-require 'warbler'
-Warbler::Task.new
+#require 'warbler'
+#Warbler::Task.new
+
 require 'rake'
 require 'rspec/core/rake_task'
 

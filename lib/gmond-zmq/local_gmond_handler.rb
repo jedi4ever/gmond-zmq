@@ -1,33 +1,11 @@
-# gem install em-zeromq
-# gem install eventmachine
-
-require 'rubygems'
-require 'em-zeromq'
-require 'eventmachine'
-require 'dante'
-require 'socket'
-require 'pp'
-require 'nokogiri'
-require 'gmond-zmq/gmondpacket2'
+require 'uuid'
 require 'gmond-zmq/gmondpacket'
-
-# requires yum install libxml2-devel
-# requires yum install libxslt-devel
-
-# Inspiration
-# https://github.com/fastly/ganglia/blob/master/lib/gm_protocol.x
-# https://github.com/igrigorik/gmetric/blob/master/lib/gmetric.rb
-# https://github.com/ganglia/monitor-core/blob/master/gmond/gmond.c#L1211
-# https://github.com/ganglia/ganglia_contrib/blob/master/gmetric-python/gmetric.py#L107
-# https://gist.github.com/1377993
-
-# http://rubyforge.org/projects/ruby-xdr/
+require 'json'
 
 Thread.abort_on_exception = true
 
-# Passing params to an EM Connectino
+# Passing params to an EM Connection
 #  http://stackoverflow.com/questions/3985092/one-question-with-eventmachine
-
 
 class LocalGmondHandler < EM::Connection
   attr_accessor :zmq_push_socket
@@ -35,22 +13,45 @@ class LocalGmondHandler < EM::Connection
 
   def receive_data packet
 
+    @metadata=Hash.new if @metadata.nil?
+
     gmonpacket=GmonPacket.new(packet)
-    @counter=0 if @counter.nil?
-    @counter=@counter+1
-    if verbose
-      pp '[',@counter,']',gmonpacket.to_hash
+    if gmonpacket.meta?
+      # Extract the metadata from the packet
+      meta=gmonpacket.parse_metadata
+      # Add it to the global metadata of this connection
+      @metadata[meta['name']]=meta
+    elsif gmonpacket.data?
+      data=gmonpacket.parse_data(@metadata)
+
+      # Check if it was a valid data request
+      unless data.nil?
+        # We currently assume this goes fast
+        # send Topic, Body
+        # Using the correct helper methods - https://github.com/andrewvc/em-zeromq/blob/master/lib/em-zeromq/connection.rb
+
+        message=Hash.new
+        message['id'] = UUID.new.generate
+        message['timestamp'] = Time.now.to_i
+        message['context'] = "METRIC"
+        message['source'] = "GMOND"
+        message['payload'] = data
+        %w{dmax tmax slope type}.each do |info|
+          message['payload'][info] = @metadata[data['name']][info]
+        end
+        # message['payload']['meta'] = @metadata[data['name']]
+
+        zmq_push_socket.send_msg('gmond', message.to_json)
+      end
+    else
+      # Skipping unknown packet types
     end
 
-    # We currently assume this goes fast
-    # send Topic, Body
-    # Using the correct helper methods - https://github.com/andrewvc/em-zeromq/blob/master/lib/em-zeromq/connection.rb
-    zmq_push_socket.send_msg('gmond', gmonpacket.to_hash.to_json)
 
     # If not, we might need to defer the block
     # # http://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/
     # # Callback block to execute once the parsing is finished
-    # operation = proc do 
+    # operation = proc do
     # end
     #
     # callback = proc do |res|

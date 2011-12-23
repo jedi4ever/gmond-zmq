@@ -25,6 +25,29 @@ module XDR
             @io = io
         end
 
+	######
+	# ADDED HERE -> need to return patch
+	# Short
+        def uint16()
+            _uint16("uint16")
+        end
+
+        def int16()
+            _int16("int16")
+        end
+
+        def _int16(typename)
+            # Ruby's unpack doesn't give us a big-endian signed integer, so we
+            # decode a native signed integer and conditionally swap it
+            _read_type(4, typename).unpack("n").pack("L").unpack("l").first
+        end
+
+        def _uint16(typename)
+            _read_type(2, typename).unpack("n").first
+        end
+	#############
+
+
         # A signed 32-bit integer, big-endian
         def int32()
             _int32("int32")

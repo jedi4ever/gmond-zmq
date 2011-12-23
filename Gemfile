@@ -1,13 +1,10 @@
 source "http://rubygems.org"
 
-#gem 'jruby-openssl'
-#gem 'eventmachine'
-#gem 'ffi'
 gem 'em-zeromq', '0.2.2'
 gem 'nokogiri'
 gem 'dante'
 gem 'json'
-#gem 'ruby-xdr'
+gem 'uuid'
 
 group :development do
   gem "warbler"
